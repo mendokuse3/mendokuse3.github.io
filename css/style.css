@@ -5,6 +5,9 @@ body {
     margin: 0;
     /* background-color: forestgreen; */
 }
+#first-target {
+    display: none;
+}
 
 header {
     margin: auto;

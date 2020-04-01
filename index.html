@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+    <script src="js/app.js"></script>
+
+</head>
+<body>
+    <div id="intro-modal" class="modal">
+        <div class="modal-content">
+            <span id="close-intro" class="close">&times;</span>
+            <p>this is an intro</p>
+        </div>
+    </div>
+
+    <div id="game-over-modal" class="modal">
+        <div class="modal-content">
+            <span id="close-game-over" class="close">&times;</span>
+            <p>gameover</p>
+        </div>
+    </div>
+
+    <header>
+        <div id="time-container">
+            <h2 id="time">Time</h2>
+        </div>
+        <h1>The Garden</h1>
+    </header>
+
+    <div id="game-container">
+
+        <div id="play-area"></div>
+        
+        <aside>
+            <div id="info-container">
+                <div class="info" >
+                    <h2>Score</h2>
+                    <h3 id="score">0</h3>
+                </div>
+
+                <div class="info">
+                    <h2>Missed Targets</h2>
+                    <h3 id="miss-counter">0</h3>
+                </div>
+
+                <div class="info">
+                    <h2>Targets Remaining</h2>
+                    <h3 id="remaining-targets">20</h3>
+                </div>
+
+                <div class="info">
+                    <h2>Round</h2>
+                    <h3 id="round">1</h3>
+                </div>
+            </div>
+        </aside>
+        
+    </div>
+        
+    <footer>
+        <div id="options-container">
+            <!-- opens up a modal that explains rules -->
+            <div class="option">
+                <button id="rules">Rules</button>
+            </div>
+
+            <!-- input options for customizing game settings -->
+            <div class="option">
+                <h2>number of popups</h2>
+                <form>
+                    <input type="number" id="popup-number" placeholder="number of popups">
+                </form>
+            </div>
+            <div class="option">
+                <h2>intervals/delay</h2>
+                <form>
+                    <input type="number" id="popup-interval" placeholder="popup interval">
+                </form>
+            </div>
+            <div class="option">
+                <h2>popup size</h2>
+                <form>
+                    <input type="number" id="target-size" placeholder="size in px">
+                </form>
+            </div>
+            <div class="option">
+                <h2>round timer</h2>
+                <form>
+                    <input type="number" id="round-time" placeholder="time in seconds">
+                </form>
+            </div>
+            <div class="option">
+                <h2>target duration</h2>
+                <form>
+                    <input type="number" id="round-number" placeholder="time in seconds">
+                </form>
+            </div>
+            
+
+        </div>
+    </footer>
+    
+</body>
+</html>

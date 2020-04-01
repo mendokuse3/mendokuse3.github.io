@@ -14,7 +14,7 @@ $(() => {
 // timer on top
     // simply counts down from variable time, which by default
     // will be a set amount of time, but can be adjusted at bottom
-    let time = 15;
+    let time = 30;
     const $roundTime = $('#time').text(time);
     let timer;
 
@@ -51,7 +51,7 @@ $(() => {
 
     let score = 0;
     let missCounter = 0;
-    let remainingTargets = 10;
+    let remainingTargets = 5;
     let round = 1;
     // score which will update continuously upon clicks
     // miss clicked which will track expired targets and if you click on body
@@ -101,7 +101,8 @@ $(() => {
         let i = remainingTargets;
         const targetInterval = setInterval(function() {
             let x = Math.floor(Math.random() * (pestArray.length));
-            const target = $('<div>').addClass('target');
+            let randomName = Math.floor(Math.random() * 20000);
+            const target = $('<div>').addClass(`target key-${randomName}`);
             target.css('background-image', `url(${pestArray[x]}`);
             target.css({
                 'top': `${randomLocationY()}px`,
@@ -109,21 +110,21 @@ $(() => {
             });
 
             target.on('click', clickTarget);
-            // target.on('load', targetDur);
 
-            // const targetDur = setTimeout(function() {
-            //     if (missCounter < 5){
-            //         missCounter ++;
-            //         updateInfo();
-            //         target.remove();
-            //     } else {
-            //         clearInterval(targetInterval);
-            //         clearTimeout(targetDur);
-            //         stopTargets();
-            //         // gameOver();
-            //     }
-            // }, (targetDuration * 1000))
-            // set up a promise
+            const targetDur = () => {
+                return new Promise(function (resolve, reject) {
+                    setTimeout(resolve, (targetDuration * 1000));
+                }).then((data) => {
+                    if ($(`.key-${randomName}`).length > 0) {
+                        target.remove();
+                        missCounter++;
+                        remainingTargets--;
+                        updateInfo();
+                    }
+                });
+            }
+            targetDur()
+
             
             $gamezone.append(target);
             
@@ -131,33 +132,16 @@ $(() => {
             
             if(i <= 0 || $roundTime.text() === "TIME IS UP") {
                 clearInterval(targetInterval);
-                // if($roundTime.text() === "TIME IS UP"){
-                    stopTargets();
+                clearInterval(timer);
+                stopTargets();
+                    // if($roundTime.text() === "TIME IS UP"){
                 // }
                 // gameOver();
             }
         }, (interval*1000));
     }
 
-    let duration;
-    
-
-    const targetDur = () => {
-        const target = $('.target');
-        duration = setTimeout(function() {
-        if (missCounter < 5){
-            missCounter ++;
-            updateInfo();
-            target.remove();
-        } else {
-            clearInterval(targetInterval);
-            clearTimeout(duration);
-            stopTargets();
-            // gameOver();
-        }
-    }, (targetDuration * 1000))
-}
-
+   
     // makes targets unclickable after time is up or miss too many
     const stopTargets = () => {
         $('.target').off();

@@ -17,7 +17,7 @@ $(() => {
     let score = 0;
     let missCounter = 0;
     let remainingTargets = {
-        val: 20,
+        val: 5,
         min: 0,
         removeTarget() {
             if(this.val > 0){
@@ -115,14 +115,17 @@ $(() => {
 
     // removes target on click
     const clickTarget = (event, name) => {
-        const target = event.currentTarget;
+        const target = $(event.currentTarget);
         // clicking on image will remove the div and add a point to score while decrementing target left
         // increment score and decrement targets left
         score += 100;
         remainingTargets.removeTarget();
-        // missCounter--;
         updateInfo();
-        testArray.push(name);
+        testArray.push(target.attr('id'));
+        // console.log(typeof target.attr('id'));
+        // console.log(target.attr('id'));
+        
+        // console.log(testArray);
         // console.log(testArray);
         
         target.remove();
@@ -139,7 +142,7 @@ const testArray = [];
 let generateTarget;
 let targetTimeout;
 
-let array = [];
+let targetArray = [];
 const createTargetArray = () => {
     for (let i = 0; i < remainingTargets.val; i++){
         let x = Math.floor(Math.random() * (pestArray.length));
@@ -151,21 +154,21 @@ const createTargetArray = () => {
             'left': `${randomLocationX()}px`
         });
         target.on('click', clickTarget);
-        array.push(target);
+        targetArray.push(target);
     }
 }
 let deadTarget;
 const startGame = () => {
-    // let generatingArray = array;
-    // console.log(array);
+    // let generatingArray = targetArray;
+    // console.log(targetArray);
     generateTarget = setInterval(function() {
-        $gamezone.append(array[0]);
-        deadTarget = array.shift();
+        $gamezone.append(targetArray[0]);
+        deadTarget = targetArray.shift();
         destroyTarget(deadTarget);
         
-        console.log(array.length);
+        // console.log(targetArray.length);
         
-        if(array.length === 0){
+        if(targetArray.length === 0){
             clearInterval(generateTarget);
         }
         
@@ -174,11 +177,19 @@ const startGame = () => {
 
 let v = 0;
 const destroyTarget = (thing) => {
+    // console.log(typeof thing.attr('id'));
+    // console.log(thing.attr('id'));
+    
+    
     setTimeout(function() {
-        missCounter++;
-        remainingTargets.removeTarget();
-        updateInfo();
-        thing.remove()
+        if(testArray.includes(thing.attr('id')) === false){
+        // console.log('destroyed');
+            // console.log(testArray.includes(deadTarget.attr('id')));
+            missCounter++;
+            remainingTargets.removeTarget();
+            updateInfo();
+            thing.remove()
+        }
     }, (targetDuration * 1000))
     // let destroyingArray = array;
     // let missedTarget = destroyingArray[0].attr('id');
@@ -191,7 +202,7 @@ const destroyTarget = (thing) => {
     
     // $(`#${missedTarget}`).remove();
     // destroyingArray.shift();
-    console.log('destroy');
+    // console.log('destroy');
     
 }
 // $('#rules').on('click', destroyTarget)

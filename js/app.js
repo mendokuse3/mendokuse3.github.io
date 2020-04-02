@@ -13,7 +13,7 @@ $(() => {
     let score = 0;
     let missCounter = 0;
     let remainingTargets = {
-        val: 10,
+        val: 5,
         min: 0,
         removeTarget() {
             if(this.val > 0){
@@ -31,7 +31,9 @@ $(() => {
     const $gamezone = $('#play-area');
     const $gameOverModal = $('#game-over-modal');
     const $closeGameOver = $('#close-game-over');
-    const targetDuration = 1;
+    const $roundOverModal = $('#round-over-modal');
+    const $startNewRound = $('#start-new-round');
+    const targetDuration = 2;
     const interval = 1;
 
     let ranOutOfTime = false;
@@ -48,12 +50,15 @@ $(() => {
                 ranOutOfTime = true;
                 // remove event listeners within play zone once time is up  
                 clearInterval(timer);
+                gameOver();
+                clearInterval(generateTarget);
             }
         }, 1000);
     }
 
     const resetTimer = () => {
         time = 30;
+        clearInterval(timer);
         countDownTime();
     }
 
@@ -88,10 +93,20 @@ $(() => {
     // game over modal
     const gameOver = () => {
         clearInterval(timer);
+        clearInterval(targetTimeout);
+        clearInterval(generateTarget);
+        stopTargets();
         $gameOverModal.css('display', 'block');
-        // repeats for 4 seconds
-        console.log('hi');
         
+    }
+
+    // round over modal
+    const roundOver = () => {
+        clearInterval(targetTimeout);
+        clearInterval(generateTarget);
+        clearInterval(timer);
+        stopTargets();
+        $roundOverModal.css('display', 'block');
     }
 
     // removes target on click
@@ -112,14 +127,14 @@ $(() => {
 // GAME LOGIC
 
 let generateTarget;
-
+let targetTimeout;
 // Logic for generating targets
 const createTargets = () => {
     let i = remainingTargets.val;
     generateTarget = setInterval(function() {
         let x = Math.floor(Math.random() * (pestArray.length));
         let randomName = Math.floor(Math.random() * 20000);
-        const target = $('<div>').addClass(`target key-${randomName}`);
+        const target = $('<div>').addClass(`target`).attr('id', `key-${randomName}`);
         target.css('background-image', `url(${pestArray[x]}`);
         target.css({
             'top': `${randomLocationY()}px`,
@@ -130,9 +145,9 @@ const createTargets = () => {
 
         const targetDur = () => {
             return new Promise(function (resolve, reject) {
-                setTimeout(resolve, (targetDuration * 1000));
+                targetTimeout = setTimeout(resolve, (targetDuration * 1000));
             }).then((data) => {
-                if ($(`.key-${randomName}`).length > 0) {
+                if ($(`#key-${randomName}`).length > 0) {
                     target.remove();
                     missCounter++;
                     remainingTargets.removeTarget();
@@ -150,7 +165,9 @@ const createTargets = () => {
         i --;
 
 
-        if(i <= 0 || missCounter >= 3){
+        if(i <= 0){
+            // clearInterval(generateTarget)
+            $(`#key-${randomName}`).on('click', roundOver)
             // if($roundTime.text() === "TIME IS UP" || missCounter >= 3){
             //     clearInterval(generateTarget);
             //     stopTargets();
@@ -158,8 +175,7 @@ const createTargets = () => {
                 
             //     // gameOver();
             // }
-            clearInterval(generateTarget);
-            gameOver();
+            // gameOver();
             // stopTargets();
             // if(ranOutOfTime === true || missCounter >= 3){
             //     // clearInterval(generateTarget);
@@ -171,6 +187,10 @@ const createTargets = () => {
             // console.log("1");
             
         } 
+
+        if(missCounter >= 3){
+            gameOver();
+        }
     
     }, (interval*1000));
 }
@@ -186,6 +206,18 @@ $closeIntro.on('click', countDownTime);
 
 $closeGameOver.on('click', () => {
     $gameOverModal.hide();
+})
+
+$startNewRound.on('click', () => {
+    $roundOverModal.hide();
+    // time = 30;
+    // missCounter = 0;
+    // remainingTargets.val = 5;
+    // round = 2;
+    // updateInfo();
+    // countDownTime();
+    // createTargets();
+
 })
 
 $('#rules').on('click', resetTimer);

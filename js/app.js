@@ -13,7 +13,7 @@ $(() => {
     let score = 0;
     let missCounter = 0;
     let remainingTargets = {
-        val: 5,
+        val: 20,
         min: 0,
         removeTarget() {
             if(this.val > 0){

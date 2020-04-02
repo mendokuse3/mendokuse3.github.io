@@ -13,6 +13,7 @@
 
 </head>
 <body>
+    <!-- MODALS (and initial target) -->
     <div class="target" id='first-target'></div>
     <div id="intro-modal" class="modal">
         <div class="modal-content">
@@ -27,6 +28,7 @@
             <p>gameover</p>
         </div>
     </div>
+
     <div id="round-over-modal" class="modal">
         <div class="modal-content">
             <span id="start-new-round" class="close">&times;</span>
@@ -34,6 +36,15 @@
         </div>
     </div>
 
+    <div id="rules-modal" class="modal">
+        <div class="modal-content">
+            <span id="close-rules" class="close">&times;</span>
+            <p> these are the rules</p>
+        </div>
+    </div>
+
+
+    <!-- Game -->
     <header>
         <div id="time-container">
             <h2 id="time">Time</h2>
@@ -91,12 +102,12 @@
                     <input type="number" id="popup-interval" placeholder="popup interval">
                 </form>
             </div>
-            <div class="option">
+            <!-- <div class="option">
                 <h2>popup size</h2>
                 <form>
                     <input type="number" id="target-size" placeholder="size in px">
                 </form>
-            </div>
+            </div> -->
             <div class="option">
                 <h2>round timer</h2>
                 <form>

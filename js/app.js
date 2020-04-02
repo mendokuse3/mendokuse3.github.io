@@ -7,15 +7,24 @@ $(() => {
 // VARIABLES
     const $introModal = $('#intro-modal');
     const $closeIntro = $('#close-intro');
-    let time = 30;
-    const $roundTime = $('#time').text(time);
-    let timer;
+    const $gamezone = $('#play-area');
+    const $gameOverModal = $('#game-over-modal');
+    const $closeGameOver = $('#close-game-over');
+    const $roundOverModal = $('#round-over-modal');
+    const $startNewRound = $('#start-new-round');
+    const $rulesModal = $('#rules-modal');
+    const $closeRules = $('#close-rules');
     const $score = $('#score');
     const $missCounter = $('#miss-counter');
     const $remainingTargets = $('#remaining-targets');
     const $round = $('#round');
+    let time = 30;
+    let timer;
     let score = 0;
     let missCounter = 0;
+    let round = 1;
+    let targetDuration = 2;
+    let interval = 1;
     let remainingTargets = {
         val: 5,
         min: 0,
@@ -28,20 +37,20 @@ $(() => {
             return this.val;
         }
     }
-    let round = 1;
+    let ranOutOfTime = false;
     const pestArray = [
         "https://cdn.pixabay.com/photo/2013/07/13/10/26/snail-157212_1280.png", "https://cdn.pixabay.com/photo/2012/04/02/14/24/hungry-worm-24634_1280.png", "https://cdn.pixabay.com/photo/2013/07/13/10/15/cockroach-156887_1280.png"  
     ]
-    const $gamezone = $('#play-area');
-    const $gameOverModal = $('#game-over-modal');
-    const $closeGameOver = $('#close-game-over');
-    const $roundOverModal = $('#round-over-modal');
-    const $startNewRound = $('#start-new-round');
-    const targetDuration = 2;
-    const interval = 1;
-
-    let ranOutOfTime = false;
-// FUNCTIONS
+    let keyArray = [];
+    let generateTarget;
+    let targetTimeout;
+    let testArray = [];
+    let targetArray = [];
+    let deadTarget;
+    const $roundTime = $('#time').text(time);
+    
+    
+    // FUNCTIONS
     const countDownTime = () => {
         timer = setInterval(function() {
             time --;
@@ -97,7 +106,7 @@ $(() => {
     // game over modal
     const gameOver = () => {
         clearInterval(timer);
-        clearInterval(targetTimeout);
+        clearTimeout(targetTimeout);
         clearInterval(generateTarget);
         stopTargets();
         $gameOverModal.css('display', 'block');
@@ -106,7 +115,7 @@ $(() => {
 
     // round over modal
     const roundOver = () => {
-        clearInterval(targetTimeout);
+        clearTimeout(targetTimeout);
         clearInterval(generateTarget);
         clearInterval(timer);
         stopTargets();
@@ -138,11 +147,7 @@ $(() => {
 
 
 // GAME LOGIC
-let keyArray = [];
-let generateTarget;
-let targetTimeout;
-let testArray = [];
-let targetArray = [];
+
 const createTargetArray = () => {
     for (let i = 0; i < remainingTargets.val; i++){
         let x = Math.floor(Math.random() * (pestArray.length));
@@ -158,11 +163,14 @@ const createTargetArray = () => {
         testArray.push(target);
     }
 }
-let deadTarget;
+
 const startGame = () => {
     // let generatingArray = targetArray;
     // console.log(targetArray);
     generateTarget = setInterval(function() {
+        if (round > 1) {
+            gameOver();
+        }
         $gamezone.append(targetArray[0]);
         deadTarget = targetArray.shift();
         destroyTarget(deadTarget);
@@ -292,21 +300,28 @@ $closeGameOver.on('click', () => {
 
 $startNewRound.on('click', () => {
     $roundOverModal.hide();
-    time = 30;
     missCounter = 0;
     remainingTargets.val = 5;
-    round = 2;
+    round ++;
+    targetDuration -= .5
     keyArray = [];
     testArray = [];
     targetArray = [];
+    resetTimer();
     updateInfo();
     createTargetArray();
-    countDownTime();
+    // countDownTime();
     startGame();
 
 })
 
-// $('#rules').on('click', resetTimer);
+$rulesModal.on('click', () => {
+    $rulesModal.show();
+})
+
+$closeRules.on('click', () => {
+    $rulesModal.hide();
+})
 
 
 

@@ -1,5 +1,9 @@
 $(() => {
 
+    // make a loop for how many targets are needed outside create interval and put inside an arary
+    // 
+
+
 // VARIABLES
     const $introModal = $('#intro-modal');
     const $closeIntro = $('#close-intro');
@@ -13,7 +17,7 @@ $(() => {
     let score = 0;
     let missCounter = 0;
     let remainingTargets = {
-        val: 5,
+        val: 20,
         min: 0,
         removeTarget() {
             if(this.val > 0){
@@ -33,7 +37,7 @@ $(() => {
     const $closeGameOver = $('#close-game-over');
     const $roundOverModal = $('#round-over-modal');
     const $startNewRound = $('#start-new-round');
-    const targetDuration = 2;
+    const targetDuration = 3;
     const interval = 1;
 
     let ranOutOfTime = false;
@@ -110,14 +114,19 @@ $(() => {
     }
 
     // removes target on click
-    const clickTarget = event => {
+    const clickTarget = (event, name) => {
         const target = event.currentTarget;
         // clicking on image will remove the div and add a point to score while decrementing target left
         // increment score and decrement targets left
         score += 100;
         remainingTargets.removeTarget();
         updateInfo();
+        testArray.push(name);
+        console.log(testArray);
+        
         target.remove();
+        console.log(target);
+        
         // if(remainingTargets.val === 0){
         //     clearInterval(timer);
         // }
@@ -125,15 +134,16 @@ $(() => {
 
 
 // GAME LOGIC
-
+const testArray = [];
 let generateTarget;
 let targetTimeout;
 // Logic for generating targets
 const createTargets = () => {
     let i = remainingTargets.val;
+    let randomName;
     generateTarget = setInterval(function() {
         let x = Math.floor(Math.random() * (pestArray.length));
-        let randomName = Math.floor(Math.random() * 20000);
+        randomName = Math.floor(Math.random() * 20000);
         const target = $('<div>').addClass(`target`).attr('id', `key-${randomName}`);
         target.css('background-image', `url(${pestArray[x]}`);
         target.css({
@@ -141,58 +151,56 @@ const createTargets = () => {
             'left': `${randomLocationX()}px`
         });
 
-        target.on('click', clickTarget);
+        target.on('click', (event) => {
+            clickTarget(event, randomName);
+        });
 
         const targetDur = () => {
             return new Promise(function (resolve, reject) {
                 targetTimeout = setTimeout(resolve, (targetDuration * 1000));
             }).then((data) => {
-                if ($(`#key-${randomName}`).length > 0) {
-                    target.remove();
-                    missCounter++;
-                    remainingTargets.removeTarget();
+                if (testArray.indexOf(randomName) === -1) {
+                    // if(testArray.indexOf(randomName) === -1) {
+                        console.log(randomName);
+                        console.log('esererer', testArray);
+                        
+                        
+                        target.remove();
+                        missCounter++;
+                        remainingTargets.removeTarget();
+                        updateInfo();
+
+                    
                     // if a target is missed and then the next one is not missed, it is counted as if missed
-                    console.log(remainingTargets.val);
-                    updateInfo();
+                    // console.log(remainingTargets.val);
                 }
             });
         }
-        targetDur();
-
+        
         
         $gamezone.append(target);
+        targetDur();
         
         i --;
 
-
-        if(i <= 0){
-            // clearInterval(generateTarget)
-            $(`#key-${randomName}`).on('click', roundOver)
-            // if($roundTime.text() === "TIME IS UP" || missCounter >= 3){
-            //     clearInterval(generateTarget);
-            //     stopTargets();
-            //     console.log('2');
-                
-            //     // gameOver();
-            // }
-            // gameOver();
-            // stopTargets();
-            // if(ranOutOfTime === true || missCounter >= 3){
-            //     // clearInterval(generateTarget);
-            //     clearInterval(timer);
-            //     stopTargets();
-            //     ranOutOfTime = false;
-            //     // gameOver();
-            // }
-            // console.log("1");
+        if(missCounter > 2){
+            console.log('i just ran before game over');
             
-        } 
-
-        if(missCounter >= 3){
             gameOver();
         }
-    
-    }, (interval*1000));
+
+        if(i<=0){
+            clearInterval(generateTarget)
+        }
+        if(i <= 0){
+            $(`#key-${randomName}`).on('click', () => {
+                console.log('i just ran before roundover');
+                
+                roundOver()
+            })
+        } 
+        
+    }, (interval*1750));
 }
 
 

@@ -121,12 +121,12 @@ $(() => {
         score += 100;
         remainingTargets.removeTarget();
         updateInfo();
-        testArray.push(target.attr('id'));
+        keyArray.push(target.attr('id'));
         // console.log(typeof target.attr('id'));
         // console.log(target.attr('id'));
         
-        // console.log(testArray);
-        // console.log(testArray);
+        // console.log(keyArray);
+
         
         target.remove();
         // console.log(target);
@@ -138,10 +138,10 @@ $(() => {
 
 
 // GAME LOGIC
-const testArray = [];
+let keyArray = [];
 let generateTarget;
 let targetTimeout;
-
+let testArray = [];
 let targetArray = [];
 const createTargetArray = () => {
     for (let i = 0; i < remainingTargets.val; i++){
@@ -155,6 +155,7 @@ const createTargetArray = () => {
         });
         target.on('click', clickTarget);
         targetArray.push(target);
+        testArray.push(target);
     }
 }
 let deadTarget;
@@ -169,23 +170,25 @@ const startGame = () => {
         // console.log(targetArray.length);
         
         if(targetArray.length === 0){
+            $(`#${testArray[testArray.length-1].attr('id')}`).on('click', roundOver);
+            // targetArray[0].on('click', roundOver)
             clearInterval(generateTarget);
         }
         
     }, (interval*1000));
 }
 
-let v = 0;
 const destroyTarget = (thing) => {
     // console.log(typeof thing.attr('id'));
     // console.log(thing.attr('id'));
-    
-    
-    setTimeout(function() {
-        if(testArray.includes(thing.attr('id')) === false){
+    targetTimeout = setTimeout(function() {
+        if(keyArray.includes(thing.attr('id')) === false){
         // console.log('destroyed');
-            // console.log(testArray.includes(deadTarget.attr('id')));
+            // console.log(keyArray.includes(deadTarget.attr('id')));
             missCounter++;
+            if(missCounter > 2){
+                gameOver();
+            }
             remainingTargets.removeTarget();
             updateInfo();
             thing.remove()
@@ -289,13 +292,17 @@ $closeGameOver.on('click', () => {
 
 $startNewRound.on('click', () => {
     $roundOverModal.hide();
-    // time = 30;
-    // missCounter = 0;
-    // remainingTargets.val = 5;
-    // round = 2;
-    // updateInfo();
-    // countDownTime();
-    // createTargets();
+    time = 30;
+    missCounter = 0;
+    remainingTargets.val = 5;
+    round = 2;
+    keyArray = [];
+    testArray = [];
+    targetArray = [];
+    updateInfo();
+    createTargetArray();
+    countDownTime();
+    startGame();
 
 })
 

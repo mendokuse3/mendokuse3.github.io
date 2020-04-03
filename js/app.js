@@ -59,10 +59,15 @@ $(() => {
     const $roundTimeInput = $('#round-time-input');
     const $durationForm = $('#duration-form');
     const $durationInput = $('#duration-input');
+
+    let numberInput;
+    let targetDurationVal;
+    let timeVal;
     
     $variableNumTargets.on('submit', (event) => {
         event.preventDefault();
         remainingTargets.val = $numberInput.val();
+        numberInput = $numberInput.val();
         
         
     })
@@ -75,11 +80,13 @@ $(() => {
     $roundTimeForm.on('submit', (event) => {
         event.preventDefault();
         time = $roundTimeInput.val();
+        timeVal = $roundTimeInput.val();
         
     })
     $durationForm.on('submit', (event) => {
         event.preventDefault();
         targetDuration = $durationInput.val();
+        targetDurationVal = $durationInput.val();
         
     })
 
@@ -106,7 +113,7 @@ $(() => {
     }
 
     const resetTimer = () => {
-        time = 30;
+        time = timeVal;
         clearInterval(timer);
         countDownTime();
     }
@@ -116,6 +123,7 @@ $(() => {
         $missCounter.text(missCounter);
         $remainingTargets.text(remainingTargets.val);
         $round.text(round);
+        $roundTime.text(time);
     }
 
     //  randomizes  x and y coordinates of target
@@ -355,7 +363,7 @@ $startNewRound.on('click', () => {
 
 const resetGame = () => {
     missCounter = 0;
-    remainingTargets.val = 20;
+    remainingTargets.val = numberInput;
     keyArray = [];
     testArray = [];
     targetArray = [];
@@ -373,12 +381,14 @@ $restartButton.on('click', () => {
     $gameOverModal.hide();
     resetGame();
     round = 1;
-    targetDuration = 2;
+    score = 0;
+    targetDuration = targetDurationVal;
     updateInfo();
 })
 
 
-
+// CURRENTLY WHEN CHANGING TARGET DURATION AND REMAININGTARGETS.VAL IN RESET GAME AND RESTARTBUTTON,
+// IT BREAKS ATTR AT LINES 229AND 217
 
 
 

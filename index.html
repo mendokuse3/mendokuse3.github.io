@@ -13,11 +13,53 @@
 
 </head>
 <body>
+    <!-- MODALS (and initial target) -->
     <div class="target" id='first-target'></div>
     <div id="intro-modal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content" id="intro-and-etc">
             <span id="close-intro" class="close">&times;</span>
             <p>this is an intro</p>
+            <!-- opens up a modal that explains rules -->
+            <div>
+                <button id="rules">Rules</button>
+            </div>
+            <p id="show-rules">rules</p>
+
+            <div id="options-container">
+                <!-- input options for customizing game settings -->
+                <div class="option">
+                    <h2>number of popups</h2>
+                    <form>
+                        <input type="number" id="popup-number" placeholder="number of popups">
+                    </form>
+                </div>
+                <div class="option">
+                    <h2>intervals/delay</h2>
+                    <form>
+                        <input type="number" id="popup-interval" placeholder="popup interval">
+                    </form>
+                </div>
+                <!-- <div class="option">
+                    <h2>popup size</h2>
+                    <form>
+                        <input type="number" id="target-size" placeholder="size in px">
+                    </form>
+                </div> -->
+                <div class="option">
+                    <h2>round timer</h2>
+                    <form>
+                        <input type="number" id="round-time" placeholder="time in seconds">
+                    </form>
+                </div>
+                <div class="option">
+                    <h2>target duration</h2>
+                    <form>
+                        <input type="number" id="round-number" placeholder="time in seconds">
+                    </form>
+                </div>
+                
+    
+            </div>
         </div>
     </div>
 
@@ -25,8 +67,12 @@
         <div class="modal-content">
             <span id="close-game-over" class="close">&times;</span>
             <p>gameover</p>
+            <div class="option">
+                <button id="restart">Restart The Game</button>
+            </div>
         </div>
     </div>
+
     <div id="round-over-modal" class="modal">
         <div class="modal-content">
             <span id="start-new-round" class="close">&times;</span>
@@ -34,6 +80,8 @@
         </div>
     </div>
 
+
+    <!-- Game -->
     <header>
         <div id="time-container">
             <h2 id="time">Time</h2>
@@ -71,48 +119,7 @@
         
     </div>
         
-    <footer>
-        <div id="options-container">
-            <!-- opens up a modal that explains rules -->
-            <div class="option">
-                <button id="rules">Rules</button>
-            </div>
-
-            <!-- input options for customizing game settings -->
-            <div class="option">
-                <h2>number of popups</h2>
-                <form>
-                    <input type="number" id="popup-number" placeholder="number of popups">
-                </form>
-            </div>
-            <div class="option">
-                <h2>intervals/delay</h2>
-                <form>
-                    <input type="number" id="popup-interval" placeholder="popup interval">
-                </form>
-            </div>
-            <div class="option">
-                <h2>popup size</h2>
-                <form>
-                    <input type="number" id="target-size" placeholder="size in px">
-                </form>
-            </div>
-            <div class="option">
-                <h2>round timer</h2>
-                <form>
-                    <input type="number" id="round-time" placeholder="time in seconds">
-                </form>
-            </div>
-            <div class="option">
-                <h2>target duration</h2>
-                <form>
-                    <input type="number" id="round-number" placeholder="time in seconds">
-                </form>
-            </div>
-            
-
-        </div>
-    </footer>
+        
     
 </body>
 </html>

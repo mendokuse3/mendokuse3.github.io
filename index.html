@@ -17,51 +17,37 @@
     <div class="target" id='first-target'></div>
     <div id="intro-modal" class="modal">
         <div class="modal-content" id="intro-and-etc">
-            <span id="close-intro" class="close">&times;</span>
-            <p>this is an intro</p>
+            <!-- <span id="close-intro" class="close">&times;</span> -->
+            <p>You're tending to a garden and these pests keep popping up.  Help get rid of them and keep your garden safe!</p>
             <!-- opens up a modal that explains rules -->
             <div>
                 <button id="rules">Rules</button>
             </div>
-            <p id="show-rules">rules</p>
+            <p id="show-rules">When you hit start, those pesky pests will pop up.  Click on one to make it go away! You can adjust your settings in the box below.</p>
 
             <div id="options-container">
                 <!-- input options for customizing game settings -->
+                <form id="input-form">
+                <div id="contain-options">
                 <div class="option">
                     <h2>Number of Popups</h2>
-                    <form id="number-form">
                         <input type="number" id='number-input' value="20">
-                        <button type='submit'>submit</button>
-                    </form>
                 </div>
                 <div class="option">
                     <h2>Popup Interval</h2>
-                    <form id="interval-form">
                         <input type="range" id="interval-input" min=".25" max="2" step=".25" value="1">
-                        <button type='submit'>submit</button>
-                    </form>
                 </div>
-                <!-- <div class="option">
-                    <h2>popup size</h2>
-                    <form>
-                        <input type="number" id="target-size" placeholder="size in px">
-                    </form>
-                </div> -->
                 <div class="option">
                     <h2>Round Timer</h2>
-                    <form id="round-time-form">
                         <input type="number" id="round-time-input" value="30">
-                        <button type='submit'>submit</button>
-                    </form>
                 </div>
                 <div class="option">
                     <h2>Target Duration</h2>
-                    <form id="duration-form">
                         <input type="range" id="duration-input" value="2" min="1" max="3" step=".5">
-                        <button type='submit'>submit</button>
-                    </form>
                 </div>
-                
+                </div>
+                    <button type='submit' id="submit-and-start">Start</button>
+                </form>
     
             </div>
         </div>
@@ -70,9 +56,10 @@
     <div id="game-over-modal" class="modal">
         <div class="modal-content">
             <span id="close-game-over" class="close">&times;</span>
-            <p>gameover</p>
+            <p>Game Over.</p>
+            <p>The pests took over your garden, ate your food, and became the supreme overlords of your house</p>
             <div class="option">
-                <button id="restart">Restart The Game</button>
+                <button class="restart">Restart The Game</button>
             </div>
         </div>
     </div>
@@ -80,9 +67,20 @@
     <div id="round-over-modal" class="modal">
         <div class="modal-content">
             <span id="start-new-round" class="close">&times;</span>
-            <p>round is over</p>
+            <p>You lasted through a round! Prepare for the next round!</p>
         </div>
     </div>
+
+    <div id="you-win-modal" class="modal">
+    <div class="modal-content">
+        <span id="start-new-round" class="close">&times;</span>
+        <p>Congratulations! You got rid of the bugs!</p>
+        <p>...... for now......</p>
+        <div class="option">
+            <button class="restart">Restart The Game</button>
+        </div>
+    </div>
+</div>
 
 
     <!-- Game -->

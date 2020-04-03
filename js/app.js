@@ -14,6 +14,7 @@ $(() => {
     const $startNewRound = $('#start-new-round');
     const $rulesButton = $('#rules');
     const $rules = $('#show-rules');
+    const $restartButton = $('#restart');
     const $score = $('#score');
     const $missCounter = $('#miss-counter');
     const $remainingTargets = $('#remaining-targets');
@@ -331,6 +332,14 @@ $rulesButton.on('click', () => {
     $rules.toggle();
 })
 
+$restartButton.on('click', () => {
+    $gamezone.empty();
+    $gameOverModal.hide();
+    resetGame();
+    round = 0;
+    targetDuration = 2;
+    updateInfo();
+})
 
 
 

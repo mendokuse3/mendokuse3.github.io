@@ -90,18 +90,6 @@ header {
     background-color: rgb(162, 131, 224);
 }
 
-#rules {
-    font-size: 1.5em;
-    padding: 5px 10px;
-    border-radius: 2em;
-    background-color: rgb(179, 179, 179);
-}
-
-#rules:hover {
-    cursor: pointer;
-    background-color: rgb(136, 136, 136);
-}
-
 .option form input {
     font-size: 1em;
     margin-bottom: 10%;
@@ -169,6 +157,26 @@ header {
 /* RULES CSS */
 #show-rules {
     display: none;
+}
+
+/* BUTTONS CSS */
+#rules {
+    font-size: 1.5em;
+    padding: 5px 10px;
+    border-radius: 2em;
+    background-color: rgb(179, 179, 179);
+}
+
+#restart {
+    font-size: 1em;
+    padding: 5px 10px;
+    border-radius: 2em;
+    background-color: rgb(179, 179, 179);
+}
+
+#rules:hover, #restart:hover {
+    cursor: pointer;
+    background-color: rgb(136, 136, 136);
 }
 
 /* GAME CSS */

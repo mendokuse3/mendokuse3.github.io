@@ -14,6 +14,7 @@ $(() => {
     const $startNewRound = $('#start-new-round');
     const $rulesModal = $('#rules-modal');
     const $closeRules = $('#close-rules');
+    const $rulesButton = $('#rules')
     const $score = $('#score');
     const $missCounter = $('#miss-counter');
     const $remainingTargets = $('#remaining-targets');
@@ -168,7 +169,7 @@ const startGame = () => {
     // let generatingArray = targetArray;
     // console.log(targetArray);
     generateTarget = setInterval(function() {
-        if (round > 1) {
+        if (round > 3) {
             gameOver();
         }
         $gamezone.append(targetArray[0]);
@@ -300,27 +301,35 @@ $closeGameOver.on('click', () => {
 
 $startNewRound.on('click', () => {
     $roundOverModal.hide();
-    missCounter = 0;
-    remainingTargets.val = 5;
+    resetGame();
+    // missCounter = 0;
+    // remainingTargets.val = 5;
     round ++;
     targetDuration -= .5
+    // keyArray = [];
+    // testArray = [];
+    // targetArray = [];
+    // resetTimer();
+    updateInfo();
+    // createTargetArray();
+    // countDownTime();
+    // startGame();
+
+})
+
+const resetGame = () => {
+    missCounter = 0;
+    remainingTargets.val = 5;
     keyArray = [];
     testArray = [];
     targetArray = [];
     resetTimer();
-    updateInfo();
     createTargetArray();
-    // countDownTime();
     startGame();
+}
 
-})
-
-$rulesModal.on('click', () => {
-    $rulesModal.show();
-})
-
-$closeRules.on('click', () => {
-    $rulesModal.hide();
+$rulesButton.on('click', () => {
+    // show rules
 })
 
 

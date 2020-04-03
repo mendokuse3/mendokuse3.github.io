@@ -12,9 +12,8 @@ $(() => {
     const $closeGameOver = $('#close-game-over');
     const $roundOverModal = $('#round-over-modal');
     const $startNewRound = $('#start-new-round');
-    const $rulesModal = $('#rules-modal');
-    const $closeRules = $('#close-rules');
-    const $rulesButton = $('#rules')
+    const $rulesButton = $('#rules');
+    const $rules = $('#show-rules');
     const $score = $('#score');
     const $missCounter = $('#miss-counter');
     const $remainingTargets = $('#remaining-targets');
@@ -329,7 +328,7 @@ const resetGame = () => {
 }
 
 $rulesButton.on('click', () => {
-    // show rules
+    $rules.toggle();
 })
 
 

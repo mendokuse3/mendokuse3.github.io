@@ -166,6 +166,10 @@ header {
     font-size: 2.5em;
 }
 
+/* RULES CSS */
+#show-rules {
+    display: none;
+}
 
 /* GAME CSS */
 

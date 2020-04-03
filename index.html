@@ -28,15 +28,17 @@
             <div id="options-container">
                 <!-- input options for customizing game settings -->
                 <div class="option">
-                    <h2>number of popups</h2>
-                    <form>
-                        <input type="number" id="popup-number" placeholder="number of popups">
+                    <h2>Number of Popups</h2>
+                    <form id="number-form">
+                        <input type="number" id='number-input' value="20">
+                        <button type='submit'>submit</button>
                     </form>
                 </div>
                 <div class="option">
-                    <h2>intervals/delay</h2>
-                    <form>
-                        <input type="number" id="popup-interval" placeholder="popup interval">
+                    <h2>Popup Interval</h2>
+                    <form id="interval-form">
+                        <input type="range" id="interval-input" min=".25" max="2" step=".25" value="1">
+                        <button type='submit'>submit</button>
                     </form>
                 </div>
                 <!-- <div class="option">
@@ -46,15 +48,17 @@
                     </form>
                 </div> -->
                 <div class="option">
-                    <h2>round timer</h2>
-                    <form>
-                        <input type="number" id="round-time" placeholder="time in seconds">
+                    <h2>Round Timer</h2>
+                    <form id="round-time-form">
+                        <input type="number" id="round-time-input" value="30">
+                        <button type='submit'>submit</button>
                     </form>
                 </div>
                 <div class="option">
-                    <h2>target duration</h2>
-                    <form>
-                        <input type="number" id="round-number" placeholder="time in seconds">
+                    <h2>Target Duration</h2>
+                    <form id="duration-form">
+                        <input type="range" id="duration-input" value="2" min="1" max="3" step=".5">
+                        <button type='submit'>submit</button>
                     </form>
                 </div>
                 

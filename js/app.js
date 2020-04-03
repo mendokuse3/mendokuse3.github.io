@@ -51,6 +51,41 @@ $(() => {
     const $roundTime = $('#time').text(time);
     
     
+    const $variableNumTargets = $('#number-form');
+    const $numberInput = $('#number-input');
+    const $intervalForm = $('#interval-form');
+    const $intervalInput = $('#interval-input');
+    const $roundTimeForm = $('#round-time-form');
+    const $roundTimeInput = $('#round-time-input');
+    const $durationForm = $('#duration-form');
+    const $durationInput = $('#duration-input');
+    
+    $variableNumTargets.on('submit', (event) => {
+        event.preventDefault();
+        remainingTargets.val = $numberInput.val();
+        
+        
+    })
+
+    $intervalForm.on('submit', (event) => {
+        event.preventDefault();
+        interval = $intervalInput.val();
+        
+    })
+    $roundTimeForm.on('submit', (event) => {
+        event.preventDefault();
+        time = $roundTimeInput.val();
+        
+    })
+    $durationForm.on('submit', (event) => {
+        event.preventDefault();
+        targetDuration = $durationInput.val();
+        
+    })
+
+
+
+
     // FUNCTIONS
     const countDownTime = () => {
         timer = setInterval(function() {
@@ -289,6 +324,7 @@ const destroyTarget = (thing) => {
 // EVENT HANDLERS
 $closeIntro.on('click', () => {
     $introModal.hide();
+    updateInfo();
     createTargetArray();
     startGame();
 });
@@ -305,7 +341,7 @@ $startNewRound.on('click', () => {
     // missCounter = 0;
     // remainingTargets.val = 5;
     round ++;
-    targetDuration -= .5
+    targetDuration /= 2;
     // keyArray = [];
     // testArray = [];
     // targetArray = [];
@@ -319,7 +355,7 @@ $startNewRound.on('click', () => {
 
 const resetGame = () => {
     missCounter = 0;
-    remainingTargets.val = 5;
+    remainingTargets.val = 20;
     keyArray = [];
     testArray = [];
     targetArray = [];
@@ -336,7 +372,7 @@ $restartButton.on('click', () => {
     $gamezone.empty();
     $gameOverModal.hide();
     resetGame();
-    round = 0;
+    round = 1;
     targetDuration = 2;
     updateInfo();
 })

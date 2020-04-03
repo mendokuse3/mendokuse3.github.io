@@ -60,7 +60,8 @@ $(() => {
     
 
 ////////////////////////////////////////////////////////////
-    // FUNCTIONS 
+// FUNCTIONS 
+
     const countDownTime = () => {
         timer = setInterval(function() {
             time --;
@@ -109,7 +110,7 @@ $(() => {
         $('.target').off();
     }
 
-    // game over modal
+    // brings up game over modal
     const gameOver = () => {
         clearInterval(timer);
         clearTimeout(targetTimeout);
@@ -119,7 +120,7 @@ $(() => {
         
     }
 
-    // winning modal
+    // brings up winning modal
     const youWin = () => {
         clearInterval(timer);
         clearTimeout(targetTimeout);
@@ -129,7 +130,7 @@ $(() => {
         
     }
 
-    // round over modal
+    // brings up round over modal
     const roundOver = () => {
         clearTimeout(targetTimeout);
         clearInterval(generateTarget);
@@ -138,7 +139,10 @@ $(() => {
         $roundOverModal.css('display', 'block');
     }
 
+    //==========================
     // removes target on click
+    // once clicked, the target id is added to key array so that misscounter is not incremented
+    //==========================
     const clickTarget = (event, name) => {
         const target = $(event.currentTarget);
         score += 100;
@@ -152,6 +156,11 @@ $(() => {
 ////////////////////////////////////////////////////////////
 // GAME LOGIC
 
+//==========================
+// generates random name and assigns it to a newly created div
+// assigns random x and y coordinate
+// pushes to 2 different arrays and gives each target clickability
+//========================== 
 const createTargetArray = () => {
     for (let i = 0; i < $numberInput.val(); i++){
         let x = Math.floor(Math.random() * (pestArray.length));
@@ -168,6 +177,11 @@ const createTargetArray = () => {
     }
 }
 
+//==========================
+// starts appending the first target in the array to the game zone and then removes the first element of the array
+// gives last target in the array the listener that if it gets clicked, brings up round over screen
+// note: if last target is not clicked, roundover will not occur
+//==========================
 const startGame = () => {
     generateTarget = setInterval(function() {
         if (round > 3) {
@@ -184,6 +198,9 @@ const startGame = () => {
     }, (interval*1000));
 }
 
+//==========================
+// checks to see if the secondary array contains the id before removing/incrementing miss counter
+//==========================
 const destroyTarget = (thing) => {
     targetTimeout = setTimeout(function() {
         if(keyArray.includes(thing.attr('id')) === false){

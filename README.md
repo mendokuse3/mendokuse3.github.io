@@ -12,8 +12,8 @@
 
 * HTML5
 * CSS
-* JAVASCRIPT
-* JQUERY
+* Javascript
+* jQuery
 
 ## The Game 
 
@@ -21,6 +21,6 @@ This game is essentially a computerized version of whack-a-mole, but also draws 
 
 [Whack-a-mole](https://en.wikipedia.org/wiki/Whac-A-Mole) is a game that most people have played at some point in their lives.  Moles pop up from holes at random and you have to hit each one before it goes back down. 
 
-![](https://gyazo.com/5709c8168a0b81df14d77966b1e79716)
+<img src="https://gyazo.com/5709c8168a0b81df14d77966b1e79716">
 
 ## Challenges

@@ -21,6 +21,6 @@ This game is essentially a computerized version of whack-a-mole, but also draws 
 
 [Whack-a-mole](https://en.wikipedia.org/wiki/Whac-A-Mole) is a game that most people have played at some point in their lives.  Moles pop up from holes at random and you have to hit each one before it goes back down. 
 
-![](img/gameDemo.gif)
+![](img/gamedemo.gif)
 
 ## Challenges
